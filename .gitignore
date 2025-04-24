@@ -1,0 +1,31 @@
+# Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+.venv-pgci/
+
+# Dependencies
+*.egg-info/
+dist/
+build/
+
+# Environment variables file
+.env
+
+# VS Code settings
+.vscode/
+
+# System files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# pytest logs (optional: remove the line if you want to keep them)
+*.log
+
+# mypy
+.mypy_cache/
+
+# pre-commit hooks (optional: remove the line to keep the config)
+!*.pre-commit-config.yaml
