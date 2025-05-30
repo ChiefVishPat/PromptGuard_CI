@@ -5,11 +5,16 @@ on:
     branches: [ main ]
   pull_request:
 
+permissions:
+  contents: read
+  checks: write
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,19 +42,19 @@ jobs:
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: pytest-results.xml
+          files: '**/pytest-results.xml'
           check_name: Pytest Tests
 
   promptguard-ci:
     needs: lint-and-test
     runs-on: ubuntu-latest
-
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       PERSPECTIVE_API_KEY: ${{ secrets.PERSPECTIVE_API_KEY }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -71,5 +76,5 @@ jobs:
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: promptguard-results.xml
+          files: '**/promptguard-results.xml'
           check_name: PromptGuard CI

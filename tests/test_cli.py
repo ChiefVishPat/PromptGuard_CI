@@ -1,7 +1,9 @@
 from typer.testing import CliRunner
+
 from promptguard.cli import app
 
 runner = CliRunner()
+
 
 def test_help_shows_usage():
     result = runner.invoke(app, ["--help"])
