@@ -2,25 +2,74 @@ name: CI
 
 on:
   push:
+    branches: [ main ]
   pull_request:
-    branches: [main]
 
 jobs:
-  tests:
+  lint-and-test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.10'
+
       - name: Install dependencies
         run: |
           python -m venv .venv
           . .venv/bin/activate
+          pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run tests
+
+      - name: Run pre-commit checks
         run: |
           . .venv/bin/activate
-          pytest -q --tb=short  # Run tests and output a brief summary
+          pre-commit run --all-files
+
+      - name: Run pytest
+        run: |
+          . .venv/bin/activate
+          pytest --junitxml=pytest-results.xml
+
+      - name: Publish Pytest results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: pytest-results.xml
+          check_name: Pytest Tests
+
+  promptguard-ci:
+    needs: lint-and-test
+    runs-on: ubuntu-latest
+
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PERSPECTIVE_API_KEY: ${{ secrets.PERSPECTIVE_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install PromptGuard package
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install .
+
+      - name: Run PromptGuard tests
+        run: |
+          . .venv/bin/activate
+          promptguard test examples/hello.yml --junit-output promptguard-results.xml
+
+      - name: Publish PromptGuard results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: promptguard-results.xml
+          check_name: PromptGuard CI

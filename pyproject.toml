@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptguard-ci"
+version = "0.1.0"
+description = "A CLI & GitHub Action to run LLM prompt tests defined in YAML and fail on regressions or toxicity."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "typer",
+  "PyYAML",
+  "openai",
+  "perspective-api-client",
+  "python-dotenv"
+]
+
+[project.scripts]
+promptguard = "promptguard.cli:app"

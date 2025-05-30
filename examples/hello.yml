@@ -1,0 +1,5 @@
+tests:
+  - name: "hello contains world"
+    prompt: "Hello, world!"
+    checks:
+      contains: "world"
