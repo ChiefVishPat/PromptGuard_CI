@@ -70,7 +70,7 @@ jobs:
       - name: Run PromptGuard tests
         run: |
           . .venv/bin/activate
-          promptguard test examples/hello.yml --junit-output promptguard-results.xml
+          promptguard test examples/hello.yml
 
       - name: Publish PromptGuard results
         if: always()
