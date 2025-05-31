@@ -13,7 +13,7 @@ dependencies = [
   "PyYAML",
   "openai",
   "perspective",
-  "python-dotenv"
+  "python-dotenv",
 ]
 
 [project.scripts]
@@ -21,4 +21,13 @@ promptguard = "promptguard.cli:app"
 
 [tool.black]
 line-length = 88
-target-version = ['py310']
+target-version = ["py310"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+
+# ------------ Key Section Below ------------
+# Instruct setuptools to include everything under promptguard/
+[tool.setuptools.packages]
+find = { where = ["."], include = ["promptguard*"] }

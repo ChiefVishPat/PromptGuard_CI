@@ -2,8 +2,8 @@ import logging
 
 import typer
 
-from logging_config import setup_logging
 from promptguard.loader import load_spec
+from promptguard.logging_config import setup_logging
 from promptguard.reporter import write_junit
 from promptguard.runner import run_tests
 
