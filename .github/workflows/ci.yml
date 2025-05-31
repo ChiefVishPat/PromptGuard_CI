@@ -13,8 +13,7 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,8 +24,8 @@ jobs:
         run: |
           python -m venv .venv
           . .venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
       - name: Run pre-commit checks
         run: |
@@ -53,8 +52,7 @@ jobs:
       PERSPECTIVE_API_KEY: ${{ secrets.PERSPECTIVE_API_KEY }}
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -65,12 +63,19 @@ jobs:
         run: |
           python -m venv .venv
           . .venv/bin/activate
-          pip install .
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Verify promptguard CLI
+        run: |
+          . .venv/bin/activate
+          promptguard --help
 
       - name: Run PromptGuard tests
         run: |
           . .venv/bin/activate
-          promptguard test examples/hello.yml
+          promptguard test examples/hello.yml \
+            --junit-output promptguard-results.xml
 
       - name: Publish PromptGuard results
         if: always()
