@@ -1,11 +1,17 @@
 import logging
+from pathlib import Path
 
 import typer
+from dotenv import load_dotenv
 
 from promptguard.loader import load_spec
 from promptguard.logging_config import setup_logging
 from promptguard.reporter import write_junit
 from promptguard.runner import run_tests
+
+project_root = Path(__file__).parent.parent
+dotenv_path = project_root / ".env"
+load_dotenv(dotenv_path)  # <-- this reads .env into os.environ
 
 setup_logging(level=logging.DEBUG)
 

@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass
 from typing import Any, Dict, List
 
-import openai
+from openai import OpenAI
 
 from promptguard.checks.contains import check_contains
 from promptguard.checks.json_valid import check_json_valid
@@ -36,18 +36,22 @@ class Results:
 
 def call_openai(prompt: str) -> str:
     """
-    Invoke the OpenAI Completion API with a fixed model and return the text
+    Send a prompt to the OpenAI chat model (gpt-4o-mini)
+    and return the assistant's reply text.
     """
-    api_key = os.getenv("OPENAI_API_KEY")
-    logger.debug(f"Initializing OpenAI API (key set? {'yes' if api_key else 'no'})")
-    openai.api_key = api_key
+    api_key = os.getenv("OPENAI_API_KEY", "")
+    logger.debug(f"Initializing OpenAI client (key set? {'yes' if api_key else 'no'})")
+    client = OpenAI(api_key=api_key)
+
     logger.debug(f"Sending chat request to gpt-4o-mini with prompt={prompt!r}")
-    resp = openai.ChatCompletion.create(
+    resp = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=50,
+        temperature=0.0,
     )
-    content = resp.choices[0].message.content or ""
+
+    content = resp.choices[0].message.content
     logger.debug(f"gpt-4o-mini replied: {content!r}")
     return content
 

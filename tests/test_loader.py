@@ -16,9 +16,9 @@ def test_load_hello_spec(tmp_path):
     assert "tests" in spec and isinstance(spec["tests"], list)
 
     first = spec["tests"][0]
-    assert first["name"] == "hello contains world"
-    assert first["prompt"] == "Hello, world!"
-    assert first["checks"]["contains"] == "world"
+    assert first["name"] == "Greeting includes ‘Hello’"
+    assert first["prompt"] == "Hello, World!"
+    assert first["checks"]["contains"] == "Hello"
 
 
 def test_invalid_yaml_raises(tmp_path):

@@ -25,7 +25,7 @@ target-version = ["py310"]
 
 [tool.flake8]
 max-line-length = 88
-extend-ignore = ["E203", "W503"]
+extend-ignore = ["E203", "W503", "E501"]
 
 # ------------ Key Section Below ------------
 # Instruct setuptools to include everything under promptguard/

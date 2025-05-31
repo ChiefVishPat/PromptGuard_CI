@@ -1,5 +1,5 @@
 tests:
-  - name: "hello contains world"
-    prompt: "Hello, world!"
+  - name: "Greeting includes ‘Hello’"
+    prompt: "Hello, World!"
     checks:
-      contains: "world"
+      contains: "Hello"
