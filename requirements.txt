@@ -14,7 +14,7 @@ check50==3.3.11
 clang-format==18.1.5
 click==8.2.1
 contourpy==1.2.0
-cryptography==42.0.7
+cryptography==44.0.1
 cycler==0.12.1
 distlib==0.3.9
 distro==1.9.0
