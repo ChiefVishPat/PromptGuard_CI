@@ -7,35 +7,40 @@ on:
 
 permissions:
   contents: read
-  checks: write
+  checks:   write
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Create & activate virtualenv
         run: |
           python -m venv .venv
-          . .venv/bin/activate
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          source .venv/bin/activate
+
+      - name: Install dependencies & CLI
+        run: |
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
 
       - name: Run pre-commit checks
         run: |
-          . .venv/bin/activate
+          source .venv/bin/activate
           pre-commit run --all-files
-      - name: Install PromptGuard in editable mode
-        run: pip install -e .
+
       - name: Run pytest
         run: |
-          . .venv/bin/activate
+          source .venv/bin/activate
           pytest --junitxml=pytest-results.xml
 
       - name: Publish Pytest results
@@ -53,28 +58,28 @@ jobs:
       PERSPECTIVE_API_KEY: ${{ secrets.PERSPECTIVE_API_KEY }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install PromptGuard package
+      - name: Create & activate virtualenv
         run: |
           python -m venv .venv
-          . .venv/bin/activate
-          python -m pip install --upgrade pip
-          pip install -e .
+          source .venv/bin/activate
 
-      - name: Verify promptguard CLI
+      - name: Install PromptGuard CLI
         run: |
-          . .venv/bin/activate
-          promptguard --help
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -e .
 
       - name: Run PromptGuard tests
         run: |
-          . .venv/bin/activate
+          source .venv/bin/activate
           promptguard test examples/hello.yml \
             --junit-output promptguard-results.xml
 
