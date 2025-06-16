@@ -1,38 +1,36 @@
-# PromptGuard_CI
+# PromptGuard CI
 
-> Catch prompt regressions **before** they reach prod.  
-> YAML → CLI → GitHub Action.
+[![CI](https://github.com/example/promptguard-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/example/promptguard-ci/actions)
+[![PyPI version](https://img.shields.io/pypi/v/promptguard-ci.svg)](https://pypi.org/project/promptguard-ci/)
 
----
+Catch prompt regressions **before** they reach production.
 
-## ⚠️ Personal showcase project
+```
+YAML -> CLI -> GitHub Action
+```
 
-This repository is **public read-only** so recruiters can browse the code, but **external pull-requests are disabled**.  
-Feel free to open Issues for questions or feedback.
-
----
-
-## ✨ MVP Feature List
-
-| Status | Feature |
-| :---: | --- |
-| ☐ | Define prompt tests in plain **YAML** |
-| ☐ | Run `promptguard test spec.yml` locally or in **GitHub Actions** |
-| ☐ | Output **JUnit XML** so CI fails when tests regress |
-| ☐ | Built-in assertions: `contains`, `not_contains`, `json_valid`, `toxicity < 0.2` |
-| ☐ | Side-by-side diff viewer (Next.js) for prompt outputs *(stretch goal)* |
-
-*(Tick each box in a future commit as you implement the feature.)*
-
----
-
-## Quick start (local)
+## Quick start
 
 ```bash
-git clone https://github.com/<your-user>/promptguard-ci
-cd promptguard-ci
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-# set your key in the shell or .env file
-export OPENAI_API_KEY="sk-..."
-promptguard test examples/hello.yml
+pip install promptguard-ci
+# or from sources
+# git clone https://github.com/<your-user>/promptguard-ci && cd promptguard-ci
+# pip install -e .
+
+# configure API keys in .env
+cp .env.example .env
+# edit OPENAI_API_KEY and PERSPECTIVE_API_KEY
+
+# run the example spec
+promptguard test examples/hello.yml --junit-output results.xml
+```
+
+## Features
+
+- Define prompt tests in **YAML**
+- Run them locally or in **GitHub Actions**
+- Emit **JUnit XML** so CI fails when tests regress
+- Built‑in assertions: `contains`, `not_contains`, `json_valid`, `toxicity < 0.2`
+
+See `examples/hello.yml` for a starting point.
+
