@@ -1,3 +1,4 @@
+from click.utils import strip_ansi
 from typer.testing import CliRunner
 
 from promptguard.cli import app
@@ -19,6 +20,7 @@ def test_test_command_help_shows_spec_and_options():
     result = runner.invoke(app, ["test", "--help"], color=False)
     assert result.exit_code == 0
     output = result.stdout
+    output = strip_ansi(result.stdout)
     # Should show a usage line for the 'test' command
     assert "Usage:" in output
     # Should document the SPEC argument
