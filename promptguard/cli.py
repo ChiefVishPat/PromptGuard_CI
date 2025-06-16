@@ -18,6 +18,12 @@ logger = logging.getLogger(__name__)
 app = typer.Typer(help="PromptGuard CI CLI")
 
 
+@app.callback()
+def main() -> None:
+    """PromptGuard command line interface."""
+    pass
+
+
 @app.command(
     "test",
     help="Run promptguard tests defined in a YAML spec,"

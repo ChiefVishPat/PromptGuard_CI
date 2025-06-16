@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="PromptGuard Tests" tests="1" failures="0" time="0.000"><properties><property name="generatedBy" value="PromptGuard CI" /><property name="timestamp" value="2025-06-16T18:47:11.357221Z" /></properties><testcase classname="promptguard.runner" name="Greeting includes ‘Hello’" /></testsuite>

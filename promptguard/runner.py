@@ -17,6 +17,9 @@ logger = logging.getLogger(__name__)
 class TestResult:
     """Result of a single test case"""
 
+    # Prevent pytest from collecting this dataclass as a test case
+    __test__ = False
+
     name: str
     passed: bool
     details: str = ""
