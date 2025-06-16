@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 
 # Virtual environment
-.venv/
-.venv-pgci/
+.venv/*
+.venv-promptguard-ci/
 
 # Dependencies
 *.egg-info/
@@ -18,8 +18,8 @@ build/
 .vscode/
 
 # System files
-.DS_Store  # macOS
-Thumbs.db  # Windows
+.DS_Store
+Thumbs.db
 
 # pytest logs (optional: remove the line if you want to keep them)
 *.log
