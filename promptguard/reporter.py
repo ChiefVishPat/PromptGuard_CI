@@ -64,5 +64,8 @@ def write_junit(results: Results, path: str) -> None:
 
     # Write to disk with XML declaration
     tree = ET.ElementTree(suite)
-    tree.write(path, encoding="utf-8", xml_declaration=True)
+    # Write XML declaration with double quotes, then the rest of the document
+    with open(path, "wb") as f:
+        f.write(b'<?xml version="1.0" encoding="utf-8"?>\n')
+        tree.write(f, encoding="utf-8", xml_declaration=False)
     logger.info(f"JUnit report written to {path} (total time: {elapsed:.3f}s)")

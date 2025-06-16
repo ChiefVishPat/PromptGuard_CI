@@ -7,7 +7,8 @@ on:
 
 permissions:
   contents: read
-  checks:   write
+  checks: write
+  issues: write
 
 jobs:
   lint-and-test:
@@ -44,7 +45,7 @@ jobs:
           pytest --junitxml=pytest-results.xml
 
       - name: Publish Pytest results
-        if: always()
+        if: always() && github.event_name == 'pull_request'
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: '**/pytest-results.xml'
@@ -84,7 +85,7 @@ jobs:
             --junit-output promptguard-results.xml
 
       - name: Publish PromptGuard results
-        if: always()
+        if: always() && github.event_name == 'pull_request'
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
           files: '**/promptguard-results.xml'

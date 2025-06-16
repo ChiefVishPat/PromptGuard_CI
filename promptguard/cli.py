@@ -26,8 +26,10 @@ def main() -> None:
 
 @app.command(
     "test",
-    help="Run promptguard tests defined in a YAML spec,"
-    "then optionally emit JUnit XML.",
+    help=(
+        "Run promptguard tests defined in a YAML spec, "
+        "then optionally emit JUnit XML."
+    ),
 )
 def test_command(
     spec: str = typer.Argument(..., help="Path to your YAML test spec"),
