@@ -44,19 +44,21 @@ def call_openai(prompt: str) -> str:
     """
     api_key = os.getenv("OPENAI_API_KEY", "")
     logger.debug(f"Initializing OpenAI client (key set? {'yes' if api_key else 'no'})")
-    client = OpenAI(api_key=api_key)
-
-    logger.debug(f"Sending chat request to gpt-4o-mini with prompt={prompt!r}")
-    resp = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=50,
-        temperature=0.0,
-    )
-
-    content = resp.choices[0].message.content
-    logger.debug(f"gpt-4o-mini replied: {content!r}")
-    return content
+    try:
+        client = OpenAI(api_key=api_key)
+        logger.debug(f"Sending chat request to gpt-4o-mini with prompt={prompt!r}")
+        resp = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=50,
+            temperature=0.0,
+        )
+        content = resp.choices[0].message.content
+        logger.debug(f"gpt-4o-mini replied: {content!r}")
+        return content
+    except Exception as e:
+        logger.error(f"OpenAI API error: {e}")
+        raise RuntimeError(f"OpenAI API error: {e}") from e
 
 
 def run_tests(spec: Dict[str, Any]) -> Results:
