@@ -1,8 +1,5 @@
 # PromptGuard CI
 
-[![CI](https://github.com/example/promptguard-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/example/promptguard-ci/actions)
-[![PyPI version](https://img.shields.io/pypi/v/promptguard-ci.svg)](https://pypi.org/project/promptguard-ci/)
-
 Catch prompt regressions **before** they reach production.
 
 ```
