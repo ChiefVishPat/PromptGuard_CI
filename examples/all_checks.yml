@@ -1,0 +1,13 @@
+tests:
+  - name: "Combined checks example"
+    prompt: |
+      Say Hello and Goodbye as a JSON object
+      {
+        "greet": "Hello",
+        "bye": "Goodbye"
+      }
+    checks:
+      contains: "Hello"
+      not_contains: "error"
+      json_valid: true
+      toxicity: 0.2

@@ -1,0 +1,5 @@
+tests:
+  - name: "JSON valid example"
+    prompt: "Return a list of numbers in JSON format"
+    checks:
+      json_valid: true

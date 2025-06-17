@@ -106,3 +106,25 @@ def test_toxicity_boundary_conditions(monkeypatch):
 
     monkeypatch.setattr("promptguard.checks.toxicity.PerspectiveAPI", DummyBelowOne)
     assert check_toxicity("anything", threshold=1.0)
+def test_contains_list_semantics():
+    text = "alpha beta gamma"
+    # all substrings present => pass
+    assert check_contains(
+        text, ["alpha", "gamma"]
+    ), "Expected all substrings to be found"
+    # missing substring => fail
+    assert not check_contains(
+        text, ["alpha", "delta"]
+    ), "Expected missing substrings to cause failure"
+
+
+def test_not_contains_list_semantics():
+    text = "alpha beta gamma"
+    # none of these substrings present => pass
+    assert check_not_contains(
+        text, ["delta", "epsilon"]
+    ), "Expected no substrings to be present"
+    # some substrings present => fail
+    assert not check_not_contains(
+        text, ["beta", "zeta"]
+    ), "Expected present substrings to cause failure"

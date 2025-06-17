@@ -1,0 +1,6 @@
+tests:
+  - name: "Contains and Not Contains example"
+    prompt: "Hello, world!"
+    checks:
+      contains: "world"
+      not_contains: "foo"
