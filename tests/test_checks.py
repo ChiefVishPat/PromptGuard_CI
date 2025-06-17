@@ -106,8 +106,6 @@ def test_toxicity_boundary_conditions(monkeypatch):
 
     monkeypatch.setattr("promptguard.checks.toxicity.PerspectiveAPI", DummyBelowOne)
     assert check_toxicity("anything", threshold=1.0)
-
-
 def test_contains_list_semantics():
     text = "alpha beta gamma"
     # all substrings present => pass
