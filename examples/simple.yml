@@ -1,0 +1,5 @@
+tests:
+  - name: "Simple contains test"
+    prompt: "foo bar"
+    checks:
+      contains: "bar"
