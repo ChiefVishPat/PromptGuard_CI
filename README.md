@@ -17,7 +17,7 @@ pip install promptguard-ci
 # git clone https://github.com/<your-user>/promptguard-ci && cd promptguard-ci
 # pip install -e .
 
-# configure API keys in .env
+# configure API keys in `.env`
 cp .env.example .env
 # edit OPENAI_API_KEY and PERSPECTIVE_API_KEY
 
@@ -25,12 +25,23 @@ cp .env.example .env
 promptguard test examples/hello.yml --junit-output results.xml
 ```
 
+### Environment variables
+
+PromptGuard reads your OpenAI and Perspective API keys from a `.env` file or
+the environment. Create a file called `.env` with:
+
+```bash
+OPENAI_API_KEY=your-openai-key
+PERSPECTIVE_API_KEY=your-perspective-key
+```
+
 ## Features
 
 - Define prompt tests in **YAML**
 - Run them locally or in **GitHub Actions**
 - Emit **JUnit XML** so CI fails when tests regress
-- Built‑in assertions: `contains`, `not_contains`, `json_valid`, `toxicity < 0.2`
+- Built-in assertions: `contains`, `not_contains`, `json_valid`, `toxicity < 0.2`
 
 See `examples/hello.yml` for a starting point.
+
 
